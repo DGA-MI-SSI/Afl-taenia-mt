@@ -1,0 +1,51 @@
+# -----------------------------------------------------------------------------
+# The configuration uses a very simple format.
+# '#' on first char defines a comment.
+# Elements are defined by a 'key=value' system.
+# Integers can be defined as base10 or base16 integer, the latter needs to be prefixed by '0x'.
+# All keys are defined in this example.
+# -----------------------------------------------------------------------------
+
+#-------------------#
+# AFL configuration #
+#-------------------#
+
+
+# Mandatory
+
+# Pathes to all important files
+afl_binary=afl_taenia/afl-fuzz
+afl_taenia_library=afl_taenia/qemu_mode/taenia/libtaenia.so
+afl_input_directory=examples/basic/input
+afl_output_directory=examples/basic/output
+afl_output_filename=/dev/shm/afl-input
+afl_target=examples/bin/smart_sample_standard
+
+
+# Optional
+#afl_target_args=
+afl_memory=1024
+afl_power_schedule=explore
+
+
+# Bring child error messages up to afl.
+afl_debug_child_output=0
+
+# Size of the input buffer
+max_input_size=20
+
+#----------------------#
+# Taenia configuration #
+#----------------------#
+
+# The targeted library or binary
+targeted_lib=examples/bin/smart_sample_standard
+
+# The targeted function (address or symbol).
+targeted_func=smart_broke
+
+# Timeout for initialization.
+init_timeout=30
+
+# Timeout between each try, allows us to identify hangs.
+hang_timeout=3

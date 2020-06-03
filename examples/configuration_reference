@@ -1,0 +1,75 @@
+# -----------------------------------------------------------------------------
+# The configuration uses a very simple format.
+# '#' on first char defines a comment.
+# Elements are defined by a 'key=value' system.
+# Integers can be defined as base10 or base16 integer, the latter needs to be prefixed by '0x'.
+# All keys are defined in this example.
+# -----------------------------------------------------------------------------
+
+#-------------------#
+# AFL configuration #
+#-------------------#
+
+
+# Mandatory
+
+# Pathes to all important files
+afl_binary=afl_taenia/afl-fuzz
+afl_taenia_library=afl_taenia/qemu_mode/taenia/libtaenia.so
+afl_input_directory=smart_sample/input
+afl_output_directory=smart_sample/output
+afl_output_filename=/dev/shm/afl-input
+afl_target=smart_sample/smart_sample
+
+
+# Optional
+#afl_target_args=
+afl_memory=25000
+afl_power_schedule=explore
+
+
+# Bring child error messages up to afl.
+afl_debug_child_output=0
+
+# Address in the targeted program, where afl_forkserver loops.
+#afl_forkserver_start_address=0x4000002120
+
+# If you want to put all files on a tmpfs (fuzzing will be faster).
+afl_use_tmpfs=1
+
+# A directory containing all libs used by target. This is used to copy them on the tmpfs and gain some execs/s.
+afl_target_libs_dir=smart_sample/libs
+
+# Libs that AFL should instrument, as a comma separated list. Spaces are allowed.
+#afl_tracked_libs=/home/john/Projets/AFL_multithread/afl_taenia/smart_sample/libsample.so
+
+# Size of the input buffer
+max_input_size=20
+
+#----------------------#
+# Taenia configuration #
+#----------------------#
+
+# The targeted library or binary
+targeted_lib=smart_sample/smart_sample
+
+# The targeted function (address or symbol).
+#targeted_func_addr=0x4000001b86
+targeted_func=smart_broke
+
+# Timeout for initialization.
+init_timeout=30
+
+# Timeout between each try, allows us to identify hangs.
+hang_timeout=3
+
+# Number of iterations for the stateful mode, 0 means no stateful mode.
+#stateful_max_iterations=10000
+
+# Names of the processes that AFL should monitor in statefull mode in order 
+# to detect interprocess communication induced crashes. Format is a comma separated list.
+# Spaces are allowed.
+#tracked_processes=
+
+# If this flag is set to 1, AFL will stop fuzzing when a tracked process crash is detected
+#stop_on_process_crash=1

@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# The configuration uses a very simple format.
+# '#' on first char defines a comment.
+# Elements are defined by a 'key=value' system.
+# Integers can be defined as base10 or base16 integer, the latter needs to be prefixed by '0x'.
+# All keys are defined in this example.
+# -----------------------------------------------------------------------------
+
+# Replay mode configuration
+
+
+# Mandatory
+replay_qemu_binary=afl_taenia/afl-qemu-trace
+replay_taenia_library=afl_taenia/qemu_mode/taenia/libtaenia.so
+replay_target=examples/bin/smart_sample_standard
+
+# Must be a single file or a directory respecting the Taenia archive architecture
+replay_payload_path=examples/replay_simple/payloads/crash.bin
+
+afl_output_filename=/dev/shm/afl-input
+
+# Taenia configuration
+
+# The targeted library or binary
+targeted_lib=examples/bin/smart_sample_standard
+
+# The targeted function (address or symbol).
+targeted_func=smart_broke
+
+# Timeout for initialization.
+init_timeout=30
+
+# Timeout between each try, allows us to identify hangs.
+hang_timeout=3
+
